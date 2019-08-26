@@ -3,7 +3,7 @@
 # mowl 
 
 mowl is an open-source project to help conference organizers analyze their historical sales data. 
-Named after Mopcon and owl, mowlr would be a very simple way to help you manage the most important metrics for the ticket campaigns.
+Named after Mopcon and owl, mowl would be a very simple way to help you manage the most important metrics for the ticket campaigns.
 
 ## Table of Contents
 - [Environment](#environment)
