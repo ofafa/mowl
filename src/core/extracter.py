@@ -1,7 +1,11 @@
 from pandas import DataFrame as df
+import pandas as pd
 import os
+import copy
 from seleniumrequests import Chrome
-
+from tqdm import tqdm
+from src.utils.vars import columns_to_merge
+from collections import Counter
 
 def load_historical_data(filename_prefix, filename_postfix, lower, upper, merge):
 
@@ -9,22 +13,27 @@ def load_historical_data(filename_prefix, filename_postfix, lower, upper, merge)
     Read csv file and merge to one dataframe
     '''
     d = df() if merge else dict()
-    for r in range(lower, upper):
+    for r in range(lower, upper + 1):
         if merge:
-            d.append(df.from_csv(filename_prefix + str(r) + filename_postfix))
+            d = d.append(pd.read_csv(filename_prefix + str(r) + filename_postfix))
         else:
-            d[r] = df.from_csv(filename_prefix + str(r) + filename_postfix)
+            d[r] = pd.read_csv(filename_prefix + str(r) + filename_postfix)
+    return d
+
+def merge_columns(data, columns_to_merge):
+    '''
+    Merge related columns based on columns_to_merge dict
+    '''
+    d = copy.deepcopy(data)
+    for k in tqdm(columns_to_merge):
+        d[k] = d[columns_to_merge[k]].apply(lambda x: ''.join(x.dropna().astype(str)), axis=1)
+        for c in columns_to_merge[k]:
+            del d[c]
     return d
 
 
-def analyze_users(d):
-    '''
-    find all the unique users who bought the tickets
-    '''
-    assert type(d) == df
-    all_emails = set(d['Email'])
-    all_phones = d['手機'].append(d['手機 ( Phone )'])
-
+def get_most_common(data, n):
+    return Counter(data.apply(lambda x: x.lower())).most_common(n)
 
 # selenium params
 login_url = 'https://kktix.com/users/sign_in'
