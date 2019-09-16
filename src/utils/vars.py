@@ -12,8 +12,9 @@ columns_to_merge = {
        '幫忙MOPCON 2017申請『高雄市會議展覽活動獎勵辦法』',
        '幫忙MOPCON 2018申請『高雄市會議展覽活動獎勵辦法』'],
     "phone_number": ['手機', '手機 ( Phone )'],
-    "real_name": ['真實姓名 ( Real Name ) ( 如願意幫忙 MOPCON 申請補助，同身分證或護照 )',
-       '真實姓名(如願意幫忙MOPCON申請補助，請填寫。同身分證或護照)']
+    "real_name": ['姓名']
+    # , '真實姓名 ( Real Name ) ( 如願意幫忙 MOPCON 申請補助，同身分證或護照 )',
+    #    '真實姓名(如願意幫忙MOPCON申請補助，請填寫。同身分證或護照)']
 }
 
 
@@ -37,8 +38,39 @@ synoniums = {
              'freelancer', 'soho', 'No', '.', '暫無', '123', '暫不公開', 'HH', 
              'Freelancer', '自營', 'X', 'Pc', 'Null', 'test', '略', '', '測試', 
              '無業', '畢業生', 'na', '私人', '替代役', 'Nomads', '1', 'TEST', 'home',
-             '接案', '獨立開發者', 'Soho', '']
+             '接案', '獨立開發者', 'Soho']
+  },
+  "job_type": {
+    "PM": ['企劃/專案管理', '企劃/專案管理 ( Project Management )'],
+    "Programmer": ['軟體技術', '軟體技術 ( Software Tech )'],
+    "Design": ['美術設計', '美術設計 ( Art Design )'],
+    "Management": ['決策管理 (  Decision Management )', '決策管理'],
+    "Education": ['教育相關 ( Education )', '教育相關'],
+    "Student": ['學生 ( Student )', '學生'],
+    "Others": ['其他 ( Others )', '其他']
+  },
+  "job_titles": {
+    "ceo": ['ceo', 'coo', '創辦人', '總經理', '老闆', '董事長', 'ceo & co-founder', 'ceo / co-founder', 'co-founder', 'cofounder', 'founder', '共同創辦人', '創辦人', '創業家', '執行長', '營運長', '理事長'],
+    "cto": ['cto', '技術總監', '技術長', 'chief programme', 'cio', 'cio', 'cloud engineering lead', 'co-founder & technical director', 'frontend tech lead & team lead'],
+    "community": ['community manager', 'community manger'],
+    "data": ['data analyst', 'data engineer', 'data scientist', '大數據工程師'],
+    "design": ['design', 'design manager', 'design technologist', 'ui designer', 'ui/ux developer', '使用者經驗研究員', '使用者經驗設計師'],
+    "engineer": ['全端工程師', '前端工程師', '副工程師', '實習工程師', '工程師', '後端工程師', '應用軟體工程師', '攻城獅', '測試工程師', '研發工程師', '程序員', '程式工程師', '程式開發工程師', '資深軟體工程師', '軟體工程師'],
+    "scholar": ['副教授', '博士候選人', '博士後研究員', '博士生', '碩士生']
   }
+}
+
+fields_to_merge = {
+    # should revese its key / value to minimize the manual part and generate the mapping automatically
+    'job_type': {'企劃/專案管理': 'pm', '企劃/專案管理 ( Project Management )': 'pm',
+                 '其他': 'other', '其他 ( Others )': 'other',
+                 '學生': 'student', '學生 ( Student )': 'student',
+                 '教育相關': 'edu', '教育相關 ( Education )': 'edu',
+                 '決策管理': 'gm', '決策管理 (  Decision Management )': 'gm',
+                 '美術設計': 'design', '美術設計 ( Art Design )': 'design',
+                 '軟體技術': 'programmer', '軟體技術 ( Software Tech )': 'programmer'
+    }
+
 }
 
 # interesting data

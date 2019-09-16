@@ -4,8 +4,18 @@ import os
 import copy
 from seleniumrequests import Chrome
 from tqdm import tqdm
-from src.utils.vars import columns_to_merge
+from src.utils.vars import columns_to_merge, fields_to_merge
 from collections import Counter
+
+
+def run_analysis():
+    prefix = 'data/MOPCON_'
+    postfix = '_general_orders.csv'
+    lower = 2014
+    upper = 2018
+    data = merge_fields(merge_columns(load_historical_data(prefix, postfix, lower, upper, True), columns_to_merge), fields_to_merge)
+    return data
+
 
 def load_historical_data(filename_prefix, filename_postfix, lower, upper, merge):
 
@@ -20,6 +30,7 @@ def load_historical_data(filename_prefix, filename_postfix, lower, upper, merge)
             d[r] = pd.read_csv(filename_prefix + str(r) + filename_postfix)
     return d
 
+
 def merge_columns(data, columns_to_merge):
     '''
     Merge related columns based on columns_to_merge dict
@@ -32,8 +43,20 @@ def merge_columns(data, columns_to_merge):
     return d
 
 
+def merge_fields(data, fields_to_merge):
+    for f in fields_to_merge:
+        data[f] = data[f].apply(lambda x: fields_to_merge[f][x] if x in fields_to_merge[f] else 'other')
+    return data
+
+
 def get_most_common(data, n):
     return Counter(data.apply(lambda x: x.lower())).most_common(n)
+
+
+def select_by_job_type(data, job_type, fields=['nickname', '姓名', 'Email', 'job_title', 'job_type', 'company', 'gender']):
+    return data[data['job_type']==job_type][fields]
+
+
 
 # selenium params
 login_url = 'https://kktix.com/users/sign_in'
